@@ -1,0 +1,145 @@
+---
+title: "Homework 1 - Statistics 20"
+output: pdf_document
+---
+\begin{center}
+\textit{Due April 8, 2016 before 11:59 PM via upload to CCLE}
+\end{center}
+
+\section{Installing R \& RStudio}
+
+\textbf{Problem 1.} Please install the most recent versions of R (3.2.1) & RStudio on your computer. As proof of completion, issue this commnd if you use MacOS:
+
+```{r,comment=NA}
+system("who", intern = TRUE)
+```
+
+but if you use Windows:
+
+```{r,comment=NA}
+system("whoami", intern = TRUE)
+```
+
+\section{Swirl Package}
+
+\textbf{Problem 2.} In this problem, we'll be using the swirl software package for R in order to practice some key concepts. The swirl package turns the R console into an interactive learning environment.
+
+- Install swirl using:  **install.packages("swirl")**
+- Load Swirl using: **library(swirl)**
+- Install the R Progroamming course using: **install_from_swirl("R Programming")**
+- Start swirl and complete the lessons using: **swirl()**
+- Do the following lessons:
+
+A. Do  *1: R Programming Basic Building Blocks* lesson. Explain the *recycling* rule with an example.
+
+When given two vectors of the same length, R simply performs the specified arithmetic operation (`+`, `-`,
+ `*`, etc.) element-by-element. If the vectors are of different lengths, R 'recycles' the shorter vector until it is the same length as the longer vector.
+e.g.
+```{r,comment=NA}
+z<-c(1.1,9,3.14)
+z*2+100
+```
+When we do z * 2 + 100, z is a vector of length 3, but technically 2 and 100 are each vectors of length 1. So R is 'recycling' the 2 to make a vector of 2s and the 100 to make a vector of 100s.
+
+B. Do  *3: Sequences of Numbers* lesson. What command was suggested for generating a vector to contain 10 zeros, then 10 ones, then 10 twos?
+```{r,comment=NA}
+rep(c(0,1,2),each=10)
+```
+
+C. Do *4: Vectors* lesson. What was the output for paste(my_name,collapse=" ")?
+```{r,comment=NA}
+my_char<-c("My","name","is")
+paste(my_char, collapse = " ")
+```
+
+D. Do *7: Matrices and Data Frames*. What was the output for colnames(my_data)?
+```{r,comment=NA}
+my_vector<-1:20
+dim(my_vector) <- c(4, 5)
+my_matrix<-my_vector
+patients<-c("Bill", "Gina", "Kelly", "Sean")
+cbind(patients,my_matrix)
+my_data <- data.frame(patients, my_matrix)
+cnames<-c("patient", "age", "weight", "bp", "rating", "test")
+colnames(my_data)<-cnames
+colnames(my_data)
+```
+
+
+\subsubsection{Character (String) and Logical Vectors}
+
+\textbf{Problem 3.} Suppose a student has written the following:
+
+```{r,comment=NA}
+a <- c("Jane", "Dave", "Ann")
+b <- c(TRUE, FALSE, FALSE)
+b+5
+```
+
+```{r, error=TRUE,comment=NA}
+d <- matrix(c(a,b), nrow=3)
+d[,2]+5
+```
+
+Why does d[,2]+5 result in an error but b+3 did not? This answer only requires an explanation, no code.
+
+When we calculate b+3, R automatically converts the logical value into a numeric, so we are acturally calculating c(1,0,0)+5. However, when we combine a and b into a matrix, R automatically converts the logical values into characters, so we are acturally calculating c("TRUE", "FALSE", "FALSE")+5, which is not allowed.
+\subsection{Matrices}
+
+\textbf{Problem 4.} For a matrix
+
+```{r,comment=NA}
+X <- matrix(56:100, ncol=9)
+X
+```
+
+A. Show how to display the values in the 2nd column only.
+```{r,comment=NA}
+X[,2]
+```
+
+B. Show how to display the values in 3rd and 5th rows only.
+```{r,comment=NA}
+X[3,]
+X[5,]
+```
+
+\subsection{Data Frames}
+
+\textbf{Problem 5.} Data frames share some of the properties of matrices and of lists. Technically, they are considered lists (generic vectors) in the R language. They are used as the fundamental data structure by most of R’s estimation functions.
+
+A. Demonstrate that you are able to use the function data() and that you know what a data frame is by finding a built-in dataset that is NOT USArrests. Please identify the dataset. For example:
+
+```{r,comment=NA}
+data() #show all the built-in datatsets
+data(BOD)
+```
+
+Then do the following:
+
+B. Issue the class() and mode() functions for your data frame so that we can see you truly selected an appropriate dataset.
+
+```{r,comment=NA}
+class(BOD)
+```
+
+```{r,comment=NA}
+mode(BOD)
+```
+
+C. How many observations and how many variables does your data frame have? Use any R function to reveal this information.
+```{r,comment=NA}
+nrow(BOD) #number of observations
+ncol(BOD) #number of variables
+```
+
+D. Apply the summary function to a column of your choice.
+```{r,comment=NA}
+summary(BOD[,2])
+```
+
+E. Apply the head function to a column of your choice.
+```{r,comment=NA}
+head(BOD[,2])
+```
+
